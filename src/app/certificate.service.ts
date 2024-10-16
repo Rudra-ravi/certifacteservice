@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from './environments/environment-ts';
 
 export interface Certificate {
@@ -40,6 +40,13 @@ export class CertificateService {
   }
 
   getCertificatesByName(name: string): Observable<Certificate[]> {
-    return this.http.get<Certificate[]>(`${this.apiUrl}/name/${name}`);
+    return this.http.get<Certificate[]>(`${this.apiUrl}/name/${name}`).pipe(
+      map((certificates: Certificate[]) => {
+        if (certificates.length === 0) {
+          return [];
+        }
+        return certificates;
+      })
+    );
   }
 }

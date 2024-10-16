@@ -88,7 +88,7 @@ export class AppComponent implements OnInit {
         (data: Certificate[]) => {
           this.certificates = data;
           if (data.length === 0) {
-            this.showMessage('No certificates found for the given name.', 'error');
+            this.showMessage('Certificate not found', 'error');
           }
         },
         (error: any) => {
