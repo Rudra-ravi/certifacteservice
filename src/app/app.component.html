@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Certificate Management System</h1>
+  <div class="certificate-form">
+    <h2>{{ editMode ? 'Edit' : 'Add' }} Certificate</h2>
+    <form (ngSubmit)="onSubmit()">
+      <input type="text" [(ngModel)]="currentCertificate.studentName" name="studentName" placeholder="Student Name" required>
+      <input type="text" [(ngModel)]="currentCertificate.courseName" name="courseName" placeholder="Course Name" required>
+      <input type="date" [(ngModel)]="currentCertificate.issueDate" name="issueDate" placeholder="Issue Date" required>
+      <input type="text" [(ngModel)]="currentCertificate.grade" name="grade" placeholder="Grade" required>
+      <div class="form-actions">
+        <button type="submit">{{ editMode ? 'Update' : 'Add' }} Certificate</button>
+        <button type="button" (click)="resetForm()" *ngIf="editMode" class="cancel-button">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div class="certificate-search">
+    <h2>Search Certificates</h2>
+    <div class="search-form">
+      <input type="text" [(ngModel)]="searchName" placeholder="Search by student name">
+      <button (click)="searchCertificates()">Search</button>
+    </div>
+  </div>
+  <div class="certificate-list">
+    <h2>Certificates</h2>
+    <ul>
+      <li *ngFor="let certificate of certificates">
+        <div class="certificate-header">
+          <strong>{{ certificate.studentName }}</strong>
+          <div class="certificate-actions">
+            <button class="edit" (click)="editCertificate(certificate)">Edit</button>
+            <button class="delete" (click)="deleteCertificate(certificate.id)">Delete</button>
+          </div>
+        </div>
+        <div class="certificate-details">
+          <p><strong>Course Name:</strong> {{ certificate.courseName }}</p>
+          <p><strong>Issue Date:</strong> {{ certificate.issueDate | date:'mediumDate' }}</p>
+          <p><strong>Grade:</strong> {{ certificate.grade }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
